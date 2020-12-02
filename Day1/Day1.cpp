@@ -2,19 +2,59 @@
 //
 
 #include <iostream>
+#include <fstream>
+#include <vector>
 
-int main()
+int calculateProductOfN(const std::vector<unsigned int>::const_iterator& begin,
+	                    const std::vector<unsigned int>::const_iterator& end,
+						const unsigned int depth,
+	                    const unsigned int sum_value
+                       )
 {
-    std::cout << "Hello World!\n";
+	for (auto firstIt = begin; firstIt != end; ++firstIt)
+	{
+		if (2 == depth)
+		{
+			const auto secondIt = std::find(firstIt + 1, end, sum_value - *firstIt);
+			if (secondIt != end)
+			{
+				return *firstIt * *secondIt;
+
+			}
+		}
+		else
+		{
+			const int product_of_n_minus_1 = calculateProductOfN(firstIt + 1, end, depth - 1, sum_value - *firstIt);
+			if (-1 != product_of_n_minus_1)
+			{
+				return product_of_n_minus_1 * *firstIt;
+			}
+		}
+	}
+	return -1;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+int main(int argc, char* argv[])
+{
+	constexpr unsigned int sum_value = 2020;
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+	std::vector<unsigned int> numbers;
+	std::ifstream f("input.txt");
+
+	unsigned int number;
+	while (f >> number)
+	{
+		numbers.push_back(number);
+	}
+
+	//Part1
+	std::cout << "(Part1) Product of two: " << calculateProductOfN(numbers.cbegin(), numbers.cend(), 2, sum_value) << std::endl;
+	//Part2
+	std::cout << "(Part2) Product of three: " << calculateProductOfN(numbers.cbegin(), numbers.cend(), 3, sum_value);
+
+	std::cin.get();
+	return 0;
+}
+
+//(Part1)Product of two : 987339
+//(Part2)Product of three : 259521570
