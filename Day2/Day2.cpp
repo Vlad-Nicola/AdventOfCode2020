@@ -9,6 +9,10 @@
 bool checkPolicyPart1(const short min, const short max, const char key, const std::string& password)
 {
     unsigned int match_count = 0;
+    
+    //i know it's the same implementation but i think it's more clear
+    //match_count = std::count(password.begin(), password.end(), key);
+    
     for (const auto c : password)
     {
         if (c == key)
