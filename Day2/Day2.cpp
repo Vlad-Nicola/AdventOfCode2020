@@ -1,6 +1,3 @@
-// Day2.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -8,19 +5,8 @@
 
 bool checkPolicyPart1(const short min, const short max, const char key, const std::string& password)
 {
-    unsigned int match_count = 0;
+    unsigned int match_count = std::count(password.cbegin(), password.cend(), key);
     
-    //i know it's the same implementation but i think it's more clear
-    //match_count = std::count(password.begin(), password.end(), key);
-    
-    for (const auto c : password)
-    {
-        if (c == key)
-        {
-            ++match_count;
-        }
-    }
-
     if (min <= match_count && match_count <= max)
     {
         return true;
@@ -41,17 +27,11 @@ int main()
     unsigned int valid_passwords_p1 = 0;
     unsigned int valid_passwords_p2 = 0;
 
-    std::string line;
-    while (std::getline(inp_file, line))
+    short first, second;
+    char  key, useless;
+    std::string password;
+    while (inp_file >> first >> useless >> second >> key >> useless >> password)
     {
-        std::istringstream iss(line);
-
-        short first, second;
-        char  key, useless;
-        std::string password;
-
-        iss >> first>> useless >> second >> key >> useless >> password;
-
         //Part1:
         if (checkPolicyPart1(first, second, key, password)) ++valid_passwords_p1;
 
