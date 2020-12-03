@@ -20,13 +20,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="input.txt">
-      <Filter>Source Files</Filter>
-    </Text>
+    <Text Include="input.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="README.md">
-      <Filter>Source Files</Filter>
-    </None>
+    <None Include="README.md" />
+    <None Include="transform_input.py" />
   </ItemGroup>
 </Project>

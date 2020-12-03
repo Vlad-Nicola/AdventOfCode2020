@@ -1,29 +1,31 @@
 #include <iostream>
 #include <fstream>
-#include <vector>
+#include <chrono>
+#include <list>
 
-int calculateProductOfN(const std::vector<unsigned int>::const_iterator& begin,
-                        const std::vector<unsigned int>::const_iterator& end,
+int calculateProductOfN(const std::list<unsigned int>::const_iterator& begin,
+                        const std::list<unsigned int>::const_iterator& end,
                         const unsigned int depth,
                         const unsigned int sum_value
                        )
 {
-    for (auto firstIt = begin; firstIt != end; ++firstIt)
+    for (auto firstIt = begin; firstIt != end; )
     {
+        const unsigned int value = *firstIt;
         if (2 == depth)
         {
-            const auto secondIt = std::find(firstIt + 1, end, sum_value - *firstIt);
+            const auto secondIt = std::find(++firstIt , end, sum_value - value);
             if (secondIt != end)
             {
-                return *firstIt * *secondIt;
+                return value * *secondIt;
             }
         }
         else
         {
-            const int product_of_n_minus_1 = calculateProductOfN(firstIt + 1, end, depth - 1, sum_value - *firstIt);
+            const int product_of_n_minus_1 = calculateProductOfN(++firstIt, end, depth - 1, sum_value - value);
             if (-1 != product_of_n_minus_1)
             {
-                return product_of_n_minus_1 * *firstIt;
+                return product_of_n_minus_1 * value;
             }
         }
     }
@@ -34,8 +36,10 @@ int main(int argc, char* argv[])
 {
     constexpr unsigned int sum_value = 2020;
 
-    std::vector<unsigned int> numbers;
+    std::list<unsigned int> numbers;
     std::ifstream f("input.txt");
+
+    std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 
     unsigned int number;
     while (f >> number)
@@ -47,6 +51,11 @@ int main(int argc, char* argv[])
     std::cout << "(Part1) Product of two: " << calculateProductOfN(numbers.cbegin(), numbers.cend(), 2, sum_value) << std::endl;
     //Part2
     std::cout << "(Part2) Product of three: " << calculateProductOfN(numbers.cbegin(), numbers.cend(), 3, sum_value);
+
+    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+    std::cout << std::endl;
+    std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
+    std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count() << "[ns]" << std::endl;
 
     std::cin.get();
     return 0;
