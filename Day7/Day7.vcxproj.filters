@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Day6.cpp">
+    <ClCompile Include="Day7.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -23,10 +23,5 @@
     <Text Include="input.txt">
       <Filter>Source Files</Filter>
     </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="README.md">
-      <Filter>Source Files</Filter>
-    </None>
   </ItemGroup>
 </Project>

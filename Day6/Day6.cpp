@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <numeric>
-#include <vector>
+#include <array>
 #include <string>
 
 int main()
@@ -12,7 +12,7 @@ int main()
     
     while (!file.eof())
     {
-        std::vector<short> check_box(26, 0);
+        std::array<short,26> check_box{ 0 };
         short group_count = 0;
 
         std::string line;
