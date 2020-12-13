@@ -92,8 +92,6 @@ int main()
 {
     std::ifstream file("input.txt");
 
-    int wp_offset_x = 10, wp_offset_y = 1;
-
     char command; int amount;
     Boat boat_p1;
     WPBoat boat_p2{ 10, 1 };
