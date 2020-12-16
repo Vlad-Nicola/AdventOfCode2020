@@ -10,7 +10,7 @@ int main()
     {
         if (2020 == turn) last_spoken_turn_2020 = last_spoken;
 
-        const auto& [it, inserted] = spoken_catalog.insert({ last_spoken, turn });
+        const auto& [it, inserted] = spoken_catalog.try_emplace(last_spoken, turn);
         last_spoken = inserted ? 0 : turn - it->second;
         it->second = turn;
     }
