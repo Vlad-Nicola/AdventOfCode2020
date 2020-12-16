@@ -1,18 +1,19 @@
 #include <iostream>
-#include <unordered_map>
+#include <vector>
 
 int main()
 {
-    std::unordered_map<unsigned int, unsigned int> spoken_catalog {{13, 1}, {0, 2}, {10, 3}, {12, 4}, {1, 5}, {5, 6}};
+    std::vector<unsigned int> cat(30000000, 0);
+    cat[13] = 1; cat[0] = 2; cat[10] = 3; cat[12] = 4; cat[1] = 5; cat[5] = 6;
 
     unsigned int last_spoken{ 8 }, last_spoken_turn_2020{};
-    for (unsigned int turn{ spoken_catalog.size() + 1};  turn != 30000000; ++turn)
+    for (unsigned int turn{7};  turn != 30000000; ++turn)
     {
         if (2020 == turn) last_spoken_turn_2020 = last_spoken;
 
-        const auto& [it, inserted] = spoken_catalog.try_emplace(last_spoken, turn);
-        last_spoken = inserted ? 0 : turn - it->second;
-        it->second = turn;
+        auto& val = cat[last_spoken];
+        last_spoken = val ? turn - val : 0;
+        val = turn;
     }
     
     //Part1
