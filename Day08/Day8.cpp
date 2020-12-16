@@ -8,11 +8,12 @@ using Program = std::vector<std::pair<std::string, int>>;
 
 bool executeProgram(const Program& program, int& accumulator)
 {
-    std::vector<bool> executed(program.size(), 0);
+    const int size = program.size();
+    std::vector<bool> executed(size, 0);
     for (int pc{}; ; )
     {
-        if (pc == program.size()) return true;
-        if (pc < 0 || pc > program.size()) return false;
+        if (pc == size) return true;
+        if (pc < 0 || pc > size) return false;
         if (executed[pc]) return false;
 
         executed[pc] = true;

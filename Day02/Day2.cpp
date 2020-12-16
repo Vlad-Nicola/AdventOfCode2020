@@ -3,7 +3,7 @@
 #include <string>
 #include <sstream>
 
-bool checkPolicyPart1(const short min, const short max, const char key, const std::string& password)
+bool checkPolicyPart1(const unsigned int min, const unsigned int max, const char key, const std::string& password)
 {
     unsigned int match_count = std::count(password.cbegin(), password.cend(), key);
     
@@ -27,7 +27,7 @@ int main()
     unsigned int valid_passwords_p1 = 0;
     unsigned int valid_passwords_p2 = 0;
 
-    short first, second;
+    unsigned int first, second;
     char  key, useless;
     std::string password;
     while (inp_file >> first >> useless >> second >> key >> useless >> password)
