@@ -122,3 +122,5 @@ int main()
     return 0;
 }
 
+//(Part 1) Score of winner: 31629
+//(Part 2) Score of winner : 35196
