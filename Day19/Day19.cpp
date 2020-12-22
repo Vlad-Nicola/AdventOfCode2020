@@ -4,26 +4,12 @@
 #include <regex>
 #include <unordered_map>
 
-//Get matches on those, print them and see which follow the rule
-
 using Rule = std::pair < std::tuple<int, int, int>, std::tuple<int, int, int>>;
 
-std::string generateRule(const std::unordered_map<int, Rule>& mp, const int ab[2], const int rule)//, const bool part1 = true)
+std::string generateRule(const std::unordered_map<int, Rule>& mp, const int ab[2], const int rule)
 {
     if (rule == ab[0]) return "a";
     if (rule == ab[1]) return "b";
-
-    /*if (!part1)
-    {
-        if (rule == 8)
-        {
-            return generateRule(mp, ab, 42) + "+";
-        }
-        else if (rule == 11)
-        {
-            return  generateRule(mp, ab, 42) + "+" + generateRule(mp, ab, 31) + "+";
-        }
-    }*/
 
     const auto& [left, right] = mp.at(rule);
     const auto& [l_left, l_middle, l_right] = left;
@@ -104,10 +90,6 @@ int main()
             {
                 ++match_count_p1;
             }
-            /*if (regex_match(line, rule_p2))
-            {
-                ++match_count_p2;
-            }*/
             unsigned int count_42{}, count_31{};
             std::smatch match;
             while (std::regex_search(line, match, rule_p2[0]))
@@ -137,3 +119,5 @@ int main()
     return 0;
 }
 
+//(Part 1) Lines matching rule 0: 203
+//(Part 2) Lines matching rule 0 (loops) : 304
